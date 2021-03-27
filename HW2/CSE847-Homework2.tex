@@ -1,0 +1,272 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{url}
+\usepackage{color}
+\usepackage{amsmath, amssymb, bm}
+\usepackage{ulem}
+\usepackage{framed}
+\usepackage{xcolor}
+
+\textheight=8.85in
+
+\pagestyle{myheadings}
+
+\setlength{\tabcolsep}{0in}
+\begin{document}
+
+\thispagestyle {empty}
+
+\newcommand{\lsp}[1]{\large\renewcommand{\baselinestretch}{#1}\normalsize}
+\newcommand{\hsp}{\hspace{.2in}}
+\newcommand{\comment}[1]{}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{cor}{Corollary}[section]
+\newtheorem{prop}{Proposition}[section]
+\newtheorem{problem}{Problem}[section]
+
+\newcommand{\R}{{\rm\hbox{I\kern-.15em R}}}
+\newcommand{\IR}{{\rm\hbox{I\kern-.15em R}}}
+\newcommand{\IN}{{\rm\hbox{I\kern-.15em N}}}
+\newcommand{\IZ}{{\sf\hbox{Z\kern-.40em Z}}}
+\newcommand{\IS}{{\rm\hbox{S\kern-.45em S}}}
+\newcommand{\Real}{I\!\!R}
+
+\newcommand{\bPhi}{\bm{\Phi}}
+\newcommand{\bphi}{\bm{\phi}}
+\newcommand{\bt}{\mathbf{t}}
+\newcommand{\bw}{\mathbf{w}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\bmm}{\mathbf{m}}
+\newcommand{\bS}{\mathbf{S}}
+\newcommand{\bL}{\mathbf{L}}
+\newcommand{\bM}{\mathbf{M}}
+
+\newcommand{\linesep}{\vspace{.2cm}\hrule\vspace{0.2cm}}
+\newcommand{\categorysep}{\vspace{0.5cm}}
+\newcommand{\entrysep}{\vspace{0cm}}
+
+\newcommand{\category}[1]{\categorysep
+                  \noindent {\bf \large #1}
+              \linesep}
+
+\pagestyle{empty}
+
+\begin{center}
+{\large \textbf{CSE 847 (Spring 2021): Machine Learning--- Homework 2}} \\
+ Instructor: Jiayu Zhou \quad
+ Due on Wednesday, Feb 24 11:59 PM Easter Time. \\
+ All submissions should be uploaded to D2L.
+\end{center}
+
+\section{Linear Algebra II}
+
+\begin{enumerate}
+\item (20 points) Compute (by hand) the eigenvalues and the eigenvectors of the following matrix:
+$$A = \begin{pmatrix} 2 & 1 & 0 \\ 1 & 2& 0\\ 0 & 0 & 1 \end{pmatrix}.$$
+For the eigenvalues:
+\begin{center}
+      $\det[A - \lambda \mathbf{I} ] = 0$\\
+      $\det[\begin{pmatrix} 2-\lambda & 1 & 0 \\ 1 & 2-\lambda& 0\\ 0 & 0 & 1-\lambda \end{pmatrix}] = 0$\\
+      $(2-\lambda)[(2-\lambda)(1-\lambda) - 0*0] - 1*[1*(1-\lambda) - 0*0] + 0*[1*0 - 0*(2-\lambda)] = 0$\\
+      $(2-\lambda)[(2-\lambda)(1-\lambda)] - (1-\lambda) = 0$\\
+      $3 - 7\lambda + 5\lambda^2 - \lambda^3 = 0$\\
+      $-(x-3)(x-1)(x-1) = 0$\\
+      $\lambda = 3, \lambda = 1$ , with multiplicity of 2\\
+\end{center}
+For the eigenvectors. First, $\lambda = 3$.
+\begin{center}
+      $\begin{pmatrix} -1 & 1 & 0 \\ 1 & -1 & 0\\ 0 & 0 & -2 \end{pmatrix}  \begin{pmatrix} u_1  \\ u_2 \\ u_3 \end{pmatrix}= \begin{pmatrix} 0  \\ 0 \\ 0 \end{pmatrix}$\\
+      $-u_1 + u_2 = 0, u_1-u_2 = 0, -2u_3 = 0$\\
+      $u_1 = u_2 = 1, u_3 = 0$\\
+      Eigenvector for $\lambda = 3 = \begin{pmatrix} 1  \\ 1 \\ 0 \end{pmatrix}$
+\end{center}
+Second and third for $\lambda = 1$.
+\begin{center}
+      $\begin{pmatrix} 1 & 1 & 0 \\ 1 & 1 & 0\\ 0 & 0 & 0 \end{pmatrix}  \begin{pmatrix} u_1  \\ u_2 \\ u_3 \end{pmatrix}= \begin{pmatrix} 0  \\ 0 \\ 0 \end{pmatrix}$\\
+      $u_1 + u_2 = 0, u_1+u_2 = 0, u_3 = ?$\\
+      $u_1 = -u_2 and u_2 = u_2 , u_3 = u_3$\\
+      Eigenvectors for $\lambda = 1$ is the set $\{ u_2*\begin{pmatrix} -1  \\ 1 \\ 0 \end{pmatrix} + u_3 *\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} \}$
+\end{center}
+\item Given the three vectors $v_1 = (2, 0, -1), v_2 = (0, -1, 0)$ and $v_3 = (2, 0, 4)$ in $\mathbb R^3$.
+\begin{itemize}
+\item (10 points) Show that they form an orthogonal set under the standard 
+      Euclidean inner product for $\mathbb R^3$ but not an orthonormal set. \\
+      A) This means that each vector in the set must be perpendicular to each other, 
+      i.e. $v_i^Tv_j = 0$, but they are not normalized, i.e. $\left\lVert v_i \right\rVert  \neq 0$.
+      \begin{center}
+            $v_1^Tv_2 = \begin{pmatrix} 2  \\ 0 \\ -1 \end{pmatrix} \begin{pmatrix} 0 , -1, 0 \end{pmatrix} = 2*0 + 0*-1 + 0*-1 = 0$
+            $v_2^Tv_3 = \begin{pmatrix} 0  \\ -1 \\ 0 \end{pmatrix} \begin{pmatrix} 2 , 0, 4 \end{pmatrix} = 2*0 + 0*-1 + 0*4 = 0$
+            $v_3^Tv_1 = \begin{pmatrix} 2  \\ 0 \\ 4 \end{pmatrix} \begin{pmatrix} 2 , 0, -1 \end{pmatrix} = 2*2 + 0*0 + -1*4 = 0$
+            $\left\lVert v_1 \right\rVert = \sqrt{2^2 + 0^2 + (-1)^2 } = \sqrt{5}$
+      \end{center} 
+      So, because the different combinations of the vectors in the set are perpendicular, they are orthogonal. But
+      because at least one of the set has a length greater than 1, then the set doesn't form an orthonormal basis.
+\item (10 points) Turn them into a set of vectors that will form an orthonormal set of 
+      vectors under the standard Euclidean inner product for $\mathbb R^3$. \\
+      A) This means we need to normalize each of the vectors.
+      \begin{center}
+            $\left\lVert v_1 \right\rVert = \sqrt{2^2 + 0^2 + (-1)^2 } = \sqrt{5} \Rightarrow v_1 = ( \frac{2\sqrt{5}}{5}, 0, \frac{-\sqrt{5}}{5})$
+            $\left\lVert v_2 \right\rVert = \sqrt{0^2 + (-1)^2 + 0^2 } = 1$
+            $\left\lVert v_3 \right\rVert = \sqrt{2^2 + 0^2 + 4^2 } = 2\sqrt{5}\Rightarrow v_3 = ( \frac{\sqrt{5}}{5}, 0, \frac{2\sqrt{5}}{5})$
+      \end{center}
+\end{itemize}
+
+\item (10 points) Suppose that $A$ is an $n \times m$ matrix with linearly independent columns.
+      Show that $A^T A$ is an invertible matrix. \\
+      A) $A^T A$ creates a new $m \times m$ matrix. In order to be invertible, the created matrix must be 
+      non-singular, which means that the matrix must be a square, full-rank matrix. Because $A$ has linearly independent columns,
+      if the created matrix is linearly independent, then it will be full-rank and non-singular, thus invertible. 
+      However, this means that linear independence must be transferable through multiplication of two, linearly independent 
+      matrices. To show this, consider $(A^TA)x = 0$. Matrix multiplication is associative, so $A^T(Ax) = 0$. Let $(Ax) = y$, and
+      $A^Ty = 0$. Because $A^T$ is a linearly independent matrix, $A^Ty = 0$ only has the trivial solution of $y = 0$. Substituting
+      that into $(Ax) = y$, then $(Ax) = 0$, and because $A$ is linearly independent, the only trivial solution is $x = 0$. 
+      This means that the combination $A^TAx=0$ has only the trivial solution where $x = 0$, and so, the create matrix is linearly
+      independent, non-singular, and therefore, invertible.
+
+
+\item (10 points) Suppose that $A$ is an $n \times m$ matrix with linearly independent columns.
+      Let $\bar x$ be a least squares solution to the system of equations $Ax = b$ (the solution of $\min_x \|Ax - b\|_2^2$).
+      Show that $\bar x$ is the \textbf{unique} solution to the associated normal system 
+      $A^T A \bar x = A^T b$. \\
+      A) For this question, we know that $\bar x$ is the least squares solution to the system of equations $Ax = b$. In order for 
+      the least squares to be associated with the normal system, we need to show that the gradient of the least squares equation
+      results in the normal system, and then, we can show uniqueness through the fact that $A^TA$ is non-singular and invertible, 
+      as discussed above. First, let's derive that normal system from the least squares equation:
+      \begin{center}
+           $\frac{1}{2}\|Ax - b\|_2^2$ \\
+           $\frac{\partial }{\partial x_{j_0}} (\sum_{j=1}^{n} A_{ij}x_j - b_i )^2$ Definition of least squares in element form for one element\\
+           $2A_{ij_0}(\sum_{j=1}^{n} A_{ij}x_j - b_i )$ \\
+           $\sum_{i=1}^{n}A_{ij_0}(\sum_{j=1}^{n} A_{ij}x_j - b_i )$ Sum across all the elements for least squares \\
+           $A^T(Ax - b)$ Back to matrix notation \\
+           $A^TAx = A^Tb)$ Distribute and set equal \\
+      \end{center}
+      So, the gradient of the least squares is the normal system, and so any value $\bar x$ that solves the least
+      squares solves the normal system and vice versa. To ensure that the solution is unique, we must ask when 
+      a solution is unique. We know this happens when $A^TA$ is non-singular, and so, because we know from the
+      previous problem that $A^TA$ is non-singular, we can say that this solution is unique.
+
+\end{enumerate}
+
+
+\section{Linear Regression I} 
+
+Questions in the textbook Pattern Recognition and Machine Learning:
+\begin{enumerate}
+\item (10 points) Page 174, Question 3.2 \\
+A) Let $w$ be some vector in the column space of $\Phi$, and $w = \Phi v$. Then, the projection $Pw$ is
+\begin{center}
+      $Pw = \Phi (\Phi^T\Phi)^{-1}\Phi^T (\Phi v)$\\
+      $\Phi (\Phi^T\Phi)^{-1}(\Phi^T \Phi v)$\\
+      $\Phi v = w$ Canceling like terms
+\end{center}
+This means that $\Phi (\Phi^T\Phi)^{-1}\Phi^T$ can take any vector an project it onto the column space of $\Phi$.
+Similarly, for least squares, the optimal position for the least squares equation is the projection closest to $t$.
+Let $t = t_\Phi + t_{\Phi \perp}$ be the orthogonal decomposition with respect to space $\mathbb{S}$. By definition,
+we know that $t_\Phi$ lies in the space $\mathbb{S}$ and there is a coresponding vector $\Phi y$ in $\mathbb{S}$ where
+$\Phi y = t_\Phi$ (the projection). We can then say that $t - t_\Phi = t - \Phi y = x_{\Phi \perp}$ (subbing it into the first equation),
+which lies in the space $\mathbb{S}^\perp$. Note that the $Col(\Phi)^perp = Nul(\Phi^T)$, which means we can say that 
+$0 = \Phi^T(t - \Phi y) \Rightarrow \Phi^T t - \Phi^T \Phi y$. Switching some things around, we can see that 
+$y = (\Phi^T \Phi)^{-1}\Phi^T t$, or the orthogonal projection of $t$.
+
+\item (10 points) Page 175, Question 3.7
+From the hint, we know from Bayes' theorem that
+$$
+p(\bw | \bt) \propto p(\bt | \bw) p(\bw)
+$$
+where the factors on the r.h.s are given by (3.10) and (3.48), respectively. 
+\begin{align*}
+p(\bt | \mathbf X, \bw, \beta ) &= \prod_{n=1}^N \mathcal N (t_n | \bw^T \bphi(\bx_n), \beta^{-1} )  \tag {3.10}\\
+p(\bw) &= \mathcal N (\bw| \mathbf m_0, \bS_0) \tag {3.48}
+\end{align*}
+then plugin: 
+\begin{align*}
+p(\bw | \bt) 
+&\propto 
+{\color{black}\left[ \prod_{n=1}^N \mathcal N(t_n | \bw^T \bphi(\bx_n), \beta^{-1}) \right]}
+{\color{black}\mathcal N (\bw | \mathbf m_0, \bS_0)}\\
+&\propto 
+{\color{black}\exp\left( -\frac{\beta}{2} (\bt - \bPhi \bw)^T (\bt - \bPhi \bw) \right) }
+{\color{black}\exp\left( -\frac{1}{2}(\bw - \mathbf m_0)^T \bS_0^{-1} (\bw - \mathbf m_0) \right)}
+\end{align*}
+And then, we can expand out the equations and combine like terms. 
+\begin{align*}
+{\color{black}\exp\left( -\frac{\beta}{2} (\bt^T - \bPhi^T \bw^T) (\bt - \bPhi \bw) -\frac{1}{2}(\bw^T - \mathbf m_0^T) \bS_0^{-1} (\bw - \mathbf m_0) \right)}\\
+{\color{black}\exp\left( -\frac{\beta}{2} (\bt^T \bt - 2\bt^T \bPhi \bw + \bw^T \bPhi^T \bPhi \bw) -\frac{1}{2}(\bS_0^{-1} \bw^T \bw - 2\bS_0^{-1} \mathbf m_0^T \bw + \bS_0^{-1} \mathbf m_0^T \mathbf m_0) \right)}\\
+{\color{black}\exp\left( -\frac{1}{2} ( \bw^T( \bS_0^{-1} + \beta \bPhi^T \bPhi)\bw  - 2 \bw( \bS_0^{-1} \mathbf m_0^T + \beta \bt^T \bPhi ) + (\beta \bt^T \bt + \bS_0^{-1} \mathbf m_0^T \mathbf m_0) \right)}\\
+\end{align*}
+Finally, we have to complete the square. First, we start with the initial term, which turns out to be our $\bS_N^{-1}$.
+Then, we need to select our new $\bM_N$. There are some additional parameters $C$, but those can be ignored as we will have shown
+that this is proportional to (3.49).
+\begin{align*}
+\bS_N^{-1} &= \bS_0^{-1} + \beta \bPhi^T \bPhi \\
+\bM_N &= \bS_N( \bS_0^{-1} \mathbf m_0 + \beta \bt \bPhi^T )\\
+{\color{black}\exp\left( -\frac{1}{2} (w - \bM_N)^T \bS_N (w - \bM_N) + C\right)}\\
+\end{align*}
+From this, you can see that the different equations are proportional.
+
+\item (10 points) Page 175, Question 3.10
+With the help of the hint, we can use (3.3), (3.8) and (3.49),
+\begin{align*}
+y(\bx, \bw) &= \bw^T \bphi(\bx) \tag{3.3}\\
+p(t|\bx, \bw, \beta) &= \mathcal N (t|y(\bx, \bw), \beta^{-1}) \tag{3.8}\\
+p(\bw | \bt) &= \mathcal N(\bw | \bmm_N, \bS_N) \tag{3.49}
+\end{align*}
+we can re-write (3.57) as
+\begin{align*}
+p(t|\bx, \bt, \alpha, \beta) 
+&= \int p(t| \bx, \bw, \beta) p(\bw | \bt, \alpha, \beta) d \bw
+= \int \mathcal N (t | \bphi(\bx)^T \bw, \beta^{-1}) 
+\mathcal N (\bw | \bmm_N, \bS_N) d \bw 
+\end{align*}
+From here, we can see that the first factor of the integrand in rewritten equation is equivalent to the more 
+generic form described in (2.114):
+\begin{align*}
+      p(\mathbf y | \bx) = \mathcal N (\by | \mathbf A \bx + \mathbf b, \mathbf L^{-1}) \tag{2.114}
+\end{align*}
+where $Ax+b = \bw^T \phi x$ and the precision matrix $\mathbf L^{-1} = \beta^{-1}$, or the inverse covariance matrix. 
+We can then also update the second factor with the more generic form of the distribution described in (2.113):
+\begin{align*}
+      p(\bx)             = \mathcal N (\bx | \bm{\mu}, \bm \Lambda^{-1}) \tag{2.113}\\
+\end{align*}
+where $\mu = \bmm_N$, or the mean of the distribution is equivalent to mean of the posterior and $\Lambda^{-1} = \bS_N$
+or the precision is equal to the covariance of the posterior. In form below:
+\begin{align*}
+   \int \mathcal N (y | Ax+b, \bL^{-1}) 
+      \mathcal N (x | \mu, \Lambda^{-1}) d \bx    
+\end{align*}
+Pulling everything together, we can apply the Bayesian process described in 2.3.3 and the mean and covariance of 
+the distribution $p(y)$ (2.109 and 2.110) to create equivalent of (2.115).
+\begin{align*}
+   \int \mathcal N (y | Ax+b, \bL^{-1}) 
+      \mathcal N (x | \mu, \Lambda^{-1}) d \bx = \mathcal N (y | \mathbb{E} [y], COV[y]) =
+      \mathcal N (y | \mathbf{A}\mu + b, \bL^{-1} + \mathbf{A} \Lambda^{-1} \mathbf{A}^T)
+\end{align*}
+
+
+\item (10 points) Page 175, Question 3.11
+We can show this by looking at functions, (3.59) and (3.54), after both are adjusted for the next iteration (Thanks hint!). 
+The two functions are below:
+\begin{align*}
+      \bS_{N+1}^{-1} &= \bS_N^{-1} + \beta \bphi_{N+1} \bphi_{N+1}^T. \tag{3.54}\\
+      \sigma_{N+1}^2 (\bx) &= \frac{1}{\beta} + \bphi(\bx)^T \bS_{N+1} \bphi(\bx) \tag{3.59}
+\end{align*}
+We can then substitute (3.54) into (3.59) and simplify to show the relation between $\sigma_{N+1}^2 (\bx)$ and $\sigma_{N}^2 (\bx)$.
+After we substitute $\bS_{N+1}^{-1}$, we can use (3.110) to help with the simplification. Finally, we distribute $\bphi(\bx)$
+to finish creating the relation.
+\begin{align*}
+      \sigma_{N+1}^2 (\bx) = \frac{1}{\beta} + \bphi(\bx)^T \bS_{N+1} \bphi(\bx)\\
+      \frac{1}{\beta} + \bphi(\bx)^T (\bS_{N}^{-1} + \beta \bphi_{N+1}(\bx) \bphi_{N+1}(\bx)^T)^{-1} \bphi(\bx)\\
+      \frac{1}{\beta} + \bphi(\bx)^T (\bS_{N} - \frac{(\bS_{N} \beta \bphi_{N+1}(\bx))(\bphi_{N+1}(\bx)^T \bS_{N})}
+      {1+\bphi_{N+1}(\bx)^T\bS_{N}\beta \bphi_{N+1}(\bx)}) \bphi(\bx)\\
+      \frac{1}{\beta} + \bphi(\bx)^T \bS_{N} \bphi(\bx) - \bphi(\bx) \frac{(\bS_{N} \beta \bphi_{N+1}(\bx))(\bphi_{N+1}(\bx)^T \bS_{N})}
+      {1+\bphi_{N+1}(\bx)^T\bS_{N}\beta \bphi_{N+1}(\bx)}\\
+      \sigma_{N+1}^2 (\bx) \leq \sigma_{N}^2 (\bx) - \bphi(\bx) \frac{(\bS_{N} \beta \bphi_{N+1}(\bx))(\bphi_{N+1}(\bx)^T \bS_{N})}
+      {1+\bphi_{N+1}(\bx)^T\bS_{N}\beta \bphi_{N+1}(\bx)}
+\end{align*}
+So, because the next iteration reduces the current iteration, the next iteration will always be smaller than the current.
+\end{enumerate}
+
+\end{document}
